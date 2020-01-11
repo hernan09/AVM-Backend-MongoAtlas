@@ -98,3 +98,18 @@ app.delete('/cuentas/:id',(req,res) => {
       
 });
 })
+
+app.put("/cuentas/:id", (req, res) => {
+  const itemId = req.params.id;
+  const item = req.body;
+  console.log("Editing item: ", itemId, " to be ", item);
+
+  collection.updateOne({ id: itemId }, { $set: item }, (error, result) => {
+      if (error) {
+        res.status(500).send(error)
+      } else{
+        res.status(200).send(result)
+      }
+
+  });
+});
