@@ -98,3 +98,19 @@ app.delete('/cuentas/:id',(req,res) => {
       
 });
 })
+
+app.put("/cuentas/:id", (req, res) => {
+  const itemId = req.params.id;
+  const item = req.body;
+  console.log("Editing item: ", itemId, " to be ", item);
+  //es clave incorporar el objeto new object id
+  collection.updateOne({ "_id": new ObjectId(itemId) }, { $set: item }, (error, result) => {
+      if (error) throw error;
+      console.log(result)
+      // send back entire updated list, to make sure frontend data is up-to-date
+      collection.find().toArray((_error, _result) => {
+          if (_error) throw _error;
+          res.json(_result);
+      });
+  });
+});
