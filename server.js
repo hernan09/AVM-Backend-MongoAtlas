@@ -82,7 +82,7 @@ app.post("/add", (request, response) => {
       if(error) {
           return response.status(500).send(error);
       }
-      response.send(result.result);
+      response.send(result);
   });
 });
 
