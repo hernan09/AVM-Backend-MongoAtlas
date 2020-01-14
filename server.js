@@ -103,6 +103,7 @@ app.put("/cuentas/:id", (req, res) => {
   const itemId = req.params.id;
   const item = req.body;
   console.log("Editing item: ", itemId, " to be ", item);
+<<<<<<< HEAD
   //es clave incorporar el objeto new object id
   collection.updateOne({ "_id": new ObjectId(itemId) }, { $set: item }, (error, result) => {
       if (error) throw error;
@@ -112,5 +113,15 @@ app.put("/cuentas/:id", (req, res) => {
           if (_error) throw _error;
           res.json(_result);
       });
+=======
+
+  collection.updateOne({ id: itemId }, { $set: item }, (error, result) => {
+      if (error) {
+        res.status(500).send(error)
+      } else{
+        res.status(200).send(result)
+      }
+
+>>>>>>> d526bc737736a74360ad7c9db817fd8a147113be
   });
 });
