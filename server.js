@@ -89,13 +89,13 @@ app.post("/add", (request, response) => {
 app.delete('/cuentas/:id',(req,res) => {
   let id = req.params.id
   collection.deleteOne({ "_id": new ObjectId(id)},(error, result) => {
-    if (error) {
-      res.status(500).send(error)
-    }else{
-      res.status(200).send(result)
-    }
-   
-      
+    if (error) throw error;
+      console.log(result)
+      // send back entire updated list, to make sure frontend data is up-to-date
+      collection.find().toArray((_error, _result) => {
+          if (_error) throw _error;
+          res.json(_result);
+      });
 });
 })
 
